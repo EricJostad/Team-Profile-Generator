@@ -9,17 +9,26 @@
 // ask client if they want to add more interns or enginners or exit 
 // if they want to exit, finish the app
 // if the want to build a new employer, add one to html using the constructor of the apropriate type 
-function Employee(name, id) {
+function Employee(name, id, email) {
     this.name = name;
     this.id = id;
+    this.email = email;
     this.buildHtml = function buildHtml() {
       console.log(this.name);
       console.log(this.id);
       console.log(this.role);
     }
   }
-  function Manager(name, id, role) {
+  function Manager(name, id, email, role, officeNumber) {
     this.role = role;
+    Employee.call(this, name, id);
+  }
+  function Engineer(name, id, email, role, github) {
+    this.github = role;
+    Employee.call(this, name, id);
+  }
+  function Intern(name, id, email, role, school) {
+    this.school= role;
     Employee.call(this, name, id);
   }
   const manager = new Manager('A', 'B', 'C');
