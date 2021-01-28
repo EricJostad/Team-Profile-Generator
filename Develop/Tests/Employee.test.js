@@ -1,4 +1,5 @@
-const Employee = require("../lib/Employee");
+// Unit test for Employee class using the Jest package
+const Employee = require("../Lib/Employee");
 
 describe("Employee", () => {
   it("Should instantiate Employee instance", () => {
