@@ -1,13 +1,16 @@
+// Establishing the required modules
 const Employee = require("./Employee.js");
 
-// Setup constructor for the Manager class
+// Setup Manager class & constructor
 class Manager extends Employee {
-  constructor(data) {
-    const { officeNumber } = data;
-    super(data);
-    this.officeNumber = officeNumber;
-    this.role = "Manager";
-  }
+      constructor(data) {
+        const { officeNumber } = data;
+        super(data);
+        this.officeNumber = officeNumber;
+        console.log(this.officeNumber);
+        this.role = "Manager";
+        console.log(this.role);
+    }
 }
 
 // This allows the constructor to be exported to other files in the application

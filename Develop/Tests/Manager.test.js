@@ -1,5 +1,5 @@
-// Unit test for Employee class using the Jest package
-  const Manager = require("../Lib/Manager");
+// Unit test for Manager class using the Jest package
+const Manager = require("../Lib/Manager");
 
 it("Should set office number via constructor argument", () => {
   const testValue = 100;
