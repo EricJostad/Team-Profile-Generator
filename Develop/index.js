@@ -1,35 +1,61 @@
-// 1. // predefine the 3 classes/constructor functions for the three types of employees : manager, engineer, intern
-// 2. get info from the client about each employee to be added
-//    2.1 ask for name and other info of the manager
-//    2.2 ask if client wants to add another employee or exit
-//    3.3 repeat  2.2 until exit;
-// greet and ask for managers name: 
-// build an employee of type manager using a constructor (by passing all the info into the constructor)
-    // generate html with info of the employee (by running build command)
-// ask client if they want to add more interns or enginners or exit 
-// if they want to exit, finish the app
-// if the want to build a new employer, add one to html using the constructor of the apropriate type 
-function Employee(name, id, email) {
-    this.name = name;
-    this.id = id;
-    this.email = email;
-    this.buildHtml = function buildHtml() {
-      console.log(this.name);
-      console.log(this.id);
-      console.log(this.role);
-    }
+// Establishing the required modules
+const { fs } = require("fs");
+const inquirer = require("inquirer");
+const Engineer = require("./Lib/Engineer");
+const Manager = require("./Lib/Manager");
+const Intern = require("./Lib/Intern");
+const { buildQuestions, buildHtml } = require("./src/build.js");
+
+class Gen {
+  buildRole = {
+    Engineer: (data) => new Engineer(data),
+    Manager: (data) => new Manager(data),
+    Intern: (data) => new Intern(data),
+  };
+
+  employees = [];
+
+  buildQuestions = buildQuestions;
+  buildHtml = buildHtml;
+
+  start() {
+    console.log(
+      "Thanks for using our team profile generator! Please answer the following questions to develop your site."
+    );
+    this.promptEmployee("Manager");
   }
-  function Manager(name, id, email, role, officeNumber) {
-    this.role = role;
-    Employee.call(this, name, id);
+
+  addEmployee(type, data) {
+    const newEmployee = this.buildRole[type](data);
+    this.employees.push(newEmployee);
   }
-  function Engineer(name, id, email, role, github) {
-    this.github = role;
-    Employee.call(this, name, id);
+
+  promptEmployee(type) {
+    inquirer.prompt(this.buildQuestions(type)).then((answers) => {
+      this.addEmployee(type, answers);
+      this.promptContinue();
+    });
   }
-  function Intern(name, id, email, role, school) {
-    this.school= role;
-    Employee.call(this, name, id);
+
+  promptContinue() {
+    inquirer
+      .prompt({
+        type: "list",
+        choices: [
+          { name: "Add Engineer", value: "Engineer" },
+          { name: "Add Intern", value: "Intern" },
+          { name: "Exit", value: "exit" },
+        ],
+        name: "choice",
+        message:
+          "Please select from the list below if you would like to add another employee or finish and complete the application.",
+      })
+      .then(({ choice }) => {
+        if (choice === "exit") return this.buildHtml();
+        else this.promptEmployee(choice);
+      });
   }
-  const manager = new Manager('A', 'B', 'C');
-  manager.buildHtml();
+}
+
+// This allows the constructor to be exported to other files in the application
+module.exports = Index;
