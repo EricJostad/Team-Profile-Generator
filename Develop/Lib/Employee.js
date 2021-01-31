@@ -8,7 +8,7 @@ class Employee {
         this.email = email;
         console.log(this.email);
     }
-    // 
+    // Call back to the buildHtml function
     buildHtml() {
         return `
     <div class="employee-card card">
