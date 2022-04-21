@@ -26,4 +26,4 @@ This project is created with:
 - Add CSS styling for increased design.
 
 ## Author
-- Eric Jostad
+- Eric Jostad | eric.jostad@outlook.com | 407-409-0064
